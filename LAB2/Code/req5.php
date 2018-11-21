@@ -231,19 +231,19 @@ where
         ns1.BeginCityName = '$begincity'and ns2.DestCityName = '$destcity' and 
         ns1.DestCityName = ns2.BeginCityName and 
 
-        ((   (ns1.DestStationID = ns2.BeginStationID  
+        ((  ( (ns1.DestStationID = ns2.BeginStationID  
         and (  ((ns2.BeginTime - ns1.EndTime)> '0 min' and ((ns2.BeginTime - ns1.EndTime) between interval'1 hour' and  interval'4 hour')) 
             ))  or
             (ns1.DestStationID <> ns2.BeginStationID  
         and (  ((ns2.BeginTime - ns1.EndTime)> '0 min' and ((ns2.BeginTime - ns1.EndTime) between interval'2 hour' and  interval'4 hour')) 
-        ))and  ( sc2.StartDate + ns2.BeginGap) =(sc1.StartDate + ns1.EndGap) ) 
+        )))and  ( sc2.StartDate + ns2.BeginGap) =(sc1.StartDate + ns1.EndGap) ) 
         or
-        (   (ns1.DestStationID = ns2.BeginStationID  
+        (   ((ns1.DestStationID = ns2.BeginStationID  
         and (  ((ns2.BeginTime - ns1.EndTime)< '0 min'and ((ns2.BeginTime - ns1.EndTime+ interval'1 day') between interval'1 hour' and  interval'4 hour'))
             ))  or
             (ns1.DestStationID <>ns2.BeginStationID  
         and (   ((ns2.BeginTime - ns1.EndTime)< '0 min'and ((ns2.BeginTime - ns1.EndTime+ interval'1 day') between interval'2 hour' and  interval'4 hour'))
-            ) )and  ( sc2.StartDate + ns2.BeginGap) =(sc1.StartDate + ns1.EndGap + '1 day')))
+            ) ))and  ( sc2.StartDate + ns2.BeginGap) =(sc1.StartDate + ns1.EndGap + '1 day')))
         and 
         (ns1.BeginTime - time'$time') >= '0 min' and
         (sc1.StartDate + ns1.BeginGap) = '$date'  and
